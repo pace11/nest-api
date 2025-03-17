@@ -14,7 +14,9 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiResponseDto } from 'src/common/dto/api-response';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -36,6 +38,9 @@ export class UserController {
     }
   }
 
+  @Get()
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({ status: 200, description: 'Return all users' })
   @Get()
   async findAll(): Promise<ApiResponseDto<any>> {
     const users = await this.userService.findAll();
